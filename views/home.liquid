@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Список задач</title>
+    <link
+      type="text/css"
+      href="./styles.css.liquid"
+      rel="stylesheet">
+  </head>
+  <body>
+    <a href="/logout">Выход</a>
+    <div class="container">
+      <h2>Task list</h2>
+      <form action="/addTask" method="POST">
+        <input type="text" name="newtask">
+        <button>Add a task</button>
+      </form>
+      <h2>Active tasks</h2>
+      {% if tasks.length == 0 %}
+        <p>All tasks are completed</p>
+      {% else %}
+        <form action="/completedTask" method="POST">
+          {% for task in tasks %}
+            <input
+              type="checkbox"
+              name="check[]"
+              value="{{ task._id }}" />
+            {{ task.name }}<br>
+          {% endfor %}
+          <br>
+          <button type="submit">Mark as Completed</button>
+        </form>
+      {% endif %}
+      <h2>Completed tasks</h2>
+      {% for completedTask in completedTasks %}
+        {{ completedTask.name }}<br>
+      {% endfor %}
+    </div>
+  </body>
+</html>
